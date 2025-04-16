@@ -1,0 +1,19 @@
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const imageName = params.get('background_blue');
+
+  function tryLoadImage(ext) {
+    const img = new Image();
+    img.onload = () => {
+      document.getElementById('dynamicImage').src = `${imageName}.${ext}`;
+    };
+    img.onerror = () => {
+      if (ext === 'png') tryLoadImage('jpg');
+    };
+    img.src = `${imageName}.${ext}`;
+  }
+
+  if (imageName) {
+    tryLoadImage('png');
+  }
+</script>
